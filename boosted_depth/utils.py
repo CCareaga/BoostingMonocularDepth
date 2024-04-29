@@ -32,13 +32,13 @@ def read_image(path):
 
 def generatemask(size):
     # Generates a Guassian mask
-    mask = np.zeros(size, dtype=np.float32)
+    mask = np.zeros(size, dtype=np.single)
     sigma = int(size[0]/16)
     k_size = int(2 * np.ceil(2 * int(size[0]/16)) + 1)
     mask[int(0.15*size[0]):size[0] - int(0.15*size[0]), int(0.15*size[1]): size[1] - int(0.15*size[1])] = 1
     mask = cv2.GaussianBlur(mask, (int(k_size), int(k_size)), sigma)
     mask = (mask - mask.min()) / (mask.max() - mask.min())
-    mask = mask.astype(np.float32)
+    mask = mask.astype(np.single)
     return mask
 
 
@@ -97,10 +97,10 @@ def calculateprocessingres(img, basesize, confidence=0.1, scale_threshold=3, who
     grad[grad >= middle] = 1
 
     # dilation kernel with size of the receptive field
-    kernel = np.ones((int(basesize/speed_scale), int(basesize/speed_scale)), np.float)
+    kernel = np.ones((int(basesize/speed_scale), int(basesize/speed_scale)), np.single)
     # dilation kernel with size of the a quarter of receptive field used to compute k
     # as described in section 6 of main paper
-    kernel2 = np.ones((int(basesize / (4*speed_scale)), int(basesize / (4*speed_scale))), np.float)
+    kernel2 = np.ones((int(basesize / (4*speed_scale)), int(basesize / (4*speed_scale))), np.single)
 
     # Output resolution limit set by the whole_size_threshold and scale_threshold.
     threshold = min(whole_size_threshold, scale_threshold * max(img.shape[:2]))
