@@ -91,11 +91,11 @@ def create_depth_models(device='cuda', midas_path=None, pix2pix_path=None):
     # opt.isTrain = False
     # global pix2pixmodel
     if not os.path.exists(f'{CURR_PATH}/midas'):
-        os.mkdir(f'{CURR_PATH}/midas')
+        os.makedirs(f'{CURR_PATH}/midas', exist_ok=True)
         os.system(f'wget https://github.com/CCareaga/BoostingMonocularDepth/releases/download/v0.0.1/model.pt -P {CURR_PATH}/midas')
 
     if not os.path.exists(f'{CURR_PATH}/mergemodel'):
-        os.mkdir(f'{CURR_PATH}/mergemodel')
+        os.makedirs(f'{CURR_PATH}/mergemodel', exist_ok=True)
         os.system(f'wget https://github.com/CCareaga/BoostingMonocularDepth/releases/download/v0.0.1/latest_net_G.pth -P {CURR_PATH}/mergemodel')
 
 
